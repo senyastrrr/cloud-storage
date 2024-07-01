@@ -1,0 +1,19 @@
+{
+  "dropzone": {
+    "clue": "Drag 'n' drop files here, or click to select files",
+    "upload": {
+      "single": "You can upload a file up to {{size}}",
+      "infinity": "You can upload multiple files (up to {{size}} each)",
+      "multiple": "You can upload {{count}} files (up to {{size}} each)"
+    }
+  },
+  "buttons": {
+    "login": "Log in",
+    "register": "Register"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  }
+}
