@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
@@ -40,7 +41,14 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         $item = Item::findOrFail($id);
+        $url = $item->url;
         $item->delete();
+
+        // Extract the file path from the URL
+        $filePath = parse_url($url, PHP_URL_PATH);
+        $filePath = str_replace('/storage/', 'public/', $filePath);
+        
+        Storage::delete($filePath);
 
         return response()->json(null, 204);
     }

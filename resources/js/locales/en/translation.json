@@ -15,5 +15,14 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
+  },
+  "file-preview": {},
+  "uploaded-files": {
+    "title": "Uploaded files",
+    "description": "View the uploaded files here",
+    "empty-card": {
+      "title": "No files uploaded",
+      "description": "Upload some files to see them here"
+    }
   }
 }

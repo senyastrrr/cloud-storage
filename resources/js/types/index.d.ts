@@ -12,6 +12,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
 };
 
 export interface UploadedFile {
+    id: number;
     name: string;
     url: string;
     size?: number;

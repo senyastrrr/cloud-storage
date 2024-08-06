@@ -8,46 +8,36 @@ import {
 } from "@/components/ui/card"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { EmptyCard } from "@/components/empty-card"
-import get_icon from "@/lib/get_icon"
+import FileCard from "./file-card"
+import { useTranslation, Trans } from "react-i18next"
 
 interface UploadedFilesCardProps {
   uploadedFiles: UploadedFile[]
 }
 
 export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
+  const { t } = useTranslation();
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Uploaded files</CardTitle>
-        <CardDescription>View the uploaded files here</CardDescription>
+        <CardTitle>{t("uploaded-files.title")}</CardTitle>
+        <CardDescription>{t("uploaded-files.description")}</CardDescription>
       </CardHeader>
       <CardContent>
         {uploadedFiles.length > 0 ? (
           <ScrollArea className="pb-4">
-            <div className="flex w-max space-x-4">
-              {uploadedFiles.map((file) => (
-                <div key={file.url}>
-                  <div
-                    className="relative aspect-video w-48"
-                    dangerouslySetInnerHTML={{
-                      __html: get_icon({
-                        extensions: { current: file.param.type.split('/')[1] },
-                        subType: file.param.type.split('/')[1],
-                        type: file.param.type.split('/')[0],
-                      }),
-                    }}
-                  />
-                  {file.name}
-                </div>
+            <div className="flex flex-wrap justify-center gap-4 gap-y-8">
+              {uploadedFiles.map((file, index) => (
+                <FileCard key={index} file={file} />
               ))}
             </div>
-            <ScrollBar orientation="horizontal" />
+            <ScrollBar orientation="vertical" />
           </ScrollArea>
         ) : (
           <EmptyCard
-            title="No files uploaded"
-            description="Upload some files to see them here"
+            title={t("uploaded-files.empty-card.title")}
+            description={t("uploaded-files.empty-card.description")}
             className="w-full"
           />
         )}

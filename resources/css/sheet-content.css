@@ -1,0 +1,7 @@
+.sheet-content {
+    resize: horizontal;
+    overflow: auto;
+    direction: rtl;
+    max-width: 70vw;
+    min-width: 300px;
+  }

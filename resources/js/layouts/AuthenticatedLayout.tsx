@@ -1,8 +1,8 @@
 import { useState, PropsWithChildren, ReactNode } from 'react';
-import ApplicationLogo from '@/components/ApplicationLogo';
-import Dropdown from '@/components/Dropdown';
-import NavLink from '@/components/NavLink';
-import ResponsiveNavLink from '@/components/ResponsiveNavLink';
+import ApplicationLogo from '@/components/common/ApplicationLogo';
+import Dropdown from '@/components/common/Dropdown';
+import NavLink from '@/components/common/NavLink';
+import ResponsiveNavLink from '@/components/common/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 
