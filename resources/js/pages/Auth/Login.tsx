@@ -1,6 +1,6 @@
 import { useEffect, FormEventHandler } from 'react';
 import Checkbox from '@/components/common/Checkbox';
-import GuestLayout from '@/Layouts/GuestLayout';
+import GuestLayout from '@/layouts/GuestLayout';
 import InputError from '@/components/common/InputError';
 import InputLabel from '@/components/common/InputLabel';
 import PrimaryButton from '@/components/common/PrimaryButton';

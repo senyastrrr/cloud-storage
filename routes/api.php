@@ -11,4 +11,5 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/file-upload', [FileUploadController::class, 'fileUpload']);
 Route::apiResource('items', ItemsController::class);
+Route::get('/items-by-user', [ItemsController::class, 'getUserFiles']);
 

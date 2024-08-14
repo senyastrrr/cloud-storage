@@ -8,7 +8,7 @@ import React from "react";
 
 interface FilePreviewProps {
     trigger: React.ReactNode;
-    file: FileProps["file"];
+    file: FileProps;
 }
 
 const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(({ file, trigger }, ref) => {

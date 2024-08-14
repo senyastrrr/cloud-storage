@@ -4,7 +4,8 @@
     "upload": {
       "single": "You can upload a file up to {{size}}",
       "infinity": "You can upload multiple files (up to {{size}} each)",
-      "multiple": "You can upload {{count}} files (up to {{size}} each)"
+      "multiple": "You can upload {{count}} files (up to {{size}} each)",
+      "drag&drop": "Drop the files here"
     }
   },
   "buttons": {

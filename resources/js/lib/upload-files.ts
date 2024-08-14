@@ -43,8 +43,7 @@ export async function uploadFiles(
         }
       },
     });
-    console.log(response.data);
-    console.log(response.data["param"]);
+    
     const uploadedFiles: UploadedFile[] = options.files.map(file => ({
       name: file.name,
       param: response.data["param"],

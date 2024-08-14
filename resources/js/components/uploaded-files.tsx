@@ -10,13 +10,20 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { EmptyCard } from "@/components/empty-card"
 import FileCard from "./file-card"
 import { useTranslation, Trans } from "react-i18next"
+import { useState } from "react"
+import { FileProps } from "@/types/file"
 
 interface UploadedFilesCardProps {
-  uploadedFiles: UploadedFile[]
+  uploadedFiles: FileProps[]
 }
 
-export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
+export function UploadedFiles({ uploadedFiles }: UploadedFilesCardProps) {
   const { t } = useTranslation();
+
+  const [files, setFiles] = useState(uploadedFiles);
+  const handleFileDelete = (fileId: number) => {
+    setFiles(files.filter((file) => file.id !== fileId));
+  };
 
   return (
     <Card>
@@ -29,7 +36,7 @@ export function UploadedFilesCard({ uploadedFiles }: UploadedFilesCardProps) {
           <ScrollArea className="pb-4">
             <div className="flex flex-wrap justify-center gap-4 gap-y-8">
               {uploadedFiles.map((file, index) => (
-                <FileCard key={index} file={file} />
+                <FileCard key={index} file={file} onDelete={handleFileDelete} />
               ))}
             </div>
             <ScrollBar orientation="vertical" />

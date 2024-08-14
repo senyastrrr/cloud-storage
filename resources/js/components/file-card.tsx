@@ -16,18 +16,27 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import axios from 'axios';
+import { useDeleteFile } from '@/api/fileQueries/mutations';
+import { toast } from "sonner"
 
-const FileCard: React.FC<FileProps> = ({ file }) => {
+interface FileCardProps {
+    file: FileProps;
+    onDelete: (fileId: number) => void;
+  }
+
+const FileCard: React.FC<FileCardProps> = ({ file, onDelete }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const fileDelete = useDeleteFile();
 
-    const handleDelete = async () => {
+    const handleDelete = async (event: React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
         try {
-            await axios.delete(`/api/items/${file.id}`);
-            alert('File deleted successfully.');
+            fileDelete.mutate(file.id);
+            onDelete(file.id);
+            toast.success('File deleted successfully.');
         } catch (error) {
             console.error('Error deleting the file:', error);
-            alert('Failed to delete the file.');
+            toast.error(`Failed to delete the file.`)
         }
     };
 
@@ -74,7 +83,7 @@ const FileCard: React.FC<FileProps> = ({ file }) => {
                                             </button>}
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end">
-                                        <DropdownMenuItem onClick={handleDelete}>
+                                        <DropdownMenuItem onClick={(event) => handleDelete(event)}>
                                             Delete
                                         </DropdownMenuItem>
                                         <DropdownMenuItem>

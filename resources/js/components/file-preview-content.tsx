@@ -4,7 +4,7 @@ import { FileProps } from '@/types/file';
 import ReactPlayer from 'react-player'
 
 interface FilePreviewContentProps {
-    file: FileProps['file'];
+    file: FileProps;
 }
 
 export const FilePreviewContent: React.FC<FilePreviewContentProps> = ({ file }) => {

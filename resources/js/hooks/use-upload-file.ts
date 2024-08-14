@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { uploadFiles } from "@/lib/upload-files";
 import { getErrorMessage } from "@/lib/handle-error";
 import axios from "axios";
+import { useFiles } from "@/api/fileQueries/queries";
 
 interface UseUploadFileProps {
   defaultUploadedFiles?: UploadedFile[];
@@ -23,7 +24,7 @@ export function useUploadFile({
   React.useEffect(() => {
     async function fetchDefaultUploadedFiles() {
       try {
-        const response = await axios.get('/api/items');
+        const response = await axios.get('/api/items-by-user');
         setUploadedFiles(response.data);
       } catch (err) {
         toast.error(getErrorMessage(err));

@@ -127,10 +127,9 @@ export function FileUploader(props: FileUploaderProps) {
 
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
-          preview: URL.createObjectURL(file),
+          url: URL.createObjectURL(file),
         })
       )
-
       const updatedFiles = files ? [...files, ...newFiles] : newFiles
 
       setFiles(updatedFiles)
@@ -215,7 +214,7 @@ export function FileUploader(props: FileUploaderProps) {
                   />
                 </div>
                 <p className="font-medium text-muted-foreground">
-                  Drop the files here
+                  {t("dropzone.upload.drag&drop")}
                 </p>
               </div>
             ) : (

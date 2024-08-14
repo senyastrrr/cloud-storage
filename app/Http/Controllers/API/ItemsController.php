@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccessControlList;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -51,5 +52,16 @@ class ItemsController extends Controller
         Storage::delete($filePath);
 
         return response()->json(null, 204);
+    }
+
+    public function getUserFiles()
+    {
+        $user = auth()->user();
+        $files = AccessControlList::where('user_id', $user->id)
+        ->join('items', 'access_control_lists.item_id', '=', 'items.id')
+        ->select('items.*')
+        ->get();
+
+    return response()->json(['files' => $files]);
     }
 }
