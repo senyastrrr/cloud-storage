@@ -7,6 +7,7 @@ use App\Models\AccessControlList;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ItemsController extends Controller
 {
@@ -48,7 +49,7 @@ class ItemsController extends Controller
         // Extract the file path from the URL
         $filePath = parse_url($url, PHP_URL_PATH);
         $filePath = str_replace('/storage/', 'public/', $filePath);
-        
+
         Storage::delete($filePath);
 
         return response()->json(null, 204);
@@ -56,12 +57,11 @@ class ItemsController extends Controller
 
     public function getUserFiles()
     {
-        $user = auth()->user();
-        $files = AccessControlList::where('user_id', $user->id)
-        ->join('items', 'access_control_lists.item_id', '=', 'items.id')
-        ->select('items.*')
-        ->get();
+        $files = AccessControlList::where('user_id', auth()->user()->id)
+            ->with('item.param')
+            ->get()
+            ->pluck('item');
 
-    return response()->json(['files' => $files]);
+        return $files;
     }
 }

@@ -13,9 +13,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
         progresses,
         uploadFiles,
         isUploading,
-    } = useUploadFile({ endpoint: "/api/file-upload" });
+    } = useUploadFile({ endpoint: `/api/items-by-user` });
     const { t } = useTranslation();
-    console.log(auth);
     return (
         <>
             <Head title="Welcome" />

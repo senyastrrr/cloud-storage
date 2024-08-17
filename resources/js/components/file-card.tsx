@@ -46,7 +46,7 @@ const FileCard: React.FC<FileCardProps> = ({ file, onDelete }) => {
                 <TooltipTrigger asChild>
                     <FilePreview file={file} trigger={
                         <div
-                            className='relative max-w-48 bg-black'
+                            className='relative max-w-48'
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >

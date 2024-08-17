@@ -27,7 +27,7 @@ const FilePreview = React.forwardRef<HTMLDivElement, FilePreviewProps>(({ file, 
                 <FilePreviewContent file={file} />
                 <SheetFooter className="mt-6">
                     <SheetClose asChild>
-                        <Button type="submit">Перейти к оформлению</Button>
+                        
                     </SheetClose>
                 </SheetFooter>
             </SheetContent>
