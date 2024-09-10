@@ -8,9 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AccessControlList;
 use App\Models\Item;
 use App\Models\ItemParam;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
@@ -21,7 +20,7 @@ class FileUploadController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function fileUpload(Request $request): JsonResponse
+    public function fileUpload(Request $request, $id): JsonResponse
     {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -41,7 +40,7 @@ class FileUploadController extends Controller
                     'id' => $itemId,
                     'name' => $file->getClientOriginalName(),
                     'url' => asset('storage/' . $filePath),
-                    'parent_id' => null, // Set the parent_id based on your logic
+                    'parent_id' => null,
                 ]);
 
                 // Create the parameters for the Item
@@ -60,9 +59,9 @@ class FileUploadController extends Controller
                 while (AccessControlList::where('id', $aclId)->exists()) {
                     $aclId = Uuid::uuid7()->toString();
                 }
-                AccessControlList::create([
+                $acl = AccessControlList::create([
                     'id' => $aclId,
-                    'user_id' => auth()->user()->id,
+                    'user_id' => $id,
                     'item_id' => $item->id,
                 ]);
 
@@ -70,15 +69,15 @@ class FileUploadController extends Controller
                 DB::commit();
 
                 return response()->json(['url' => $item->url, 'item' => $item, 'param' => $param]);
-            } catch (QueryException $e) {
-                DB::rollBack();
-                return response()->json(['error' => 'Error uploading file'], 500);
             } catch (\Exception $e) {
                 DB::rollBack();
-                return response()->json(['error' => 'Unexpected error'], 500);
+                Log::error($e);
+                if (Storage::exists($filePath) && !DB::transactionLevel()) {
+                    Storage::delete($filePath);
+                }
+                return response()->json(['error' => 'Error uploading file'], 500);
             }
+            return response()->json(['error' => 'No file uploaded'], 400);
         }
-
-        return response()->json(['error' => 'No file uploaded'], 400);
     }
 }

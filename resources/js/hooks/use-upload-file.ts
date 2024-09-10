@@ -8,11 +8,13 @@ import axios from "axios";
 interface UseUploadFileProps {
   defaultUploadedFiles?: UploadedFile[];
   endpoint: string;
+  userId: number;
 }
 
 export function useUploadFile({
   defaultUploadedFiles = [],
   endpoint,
+  userId,
   ...props
 }: UseUploadFileProps) {
   const [uploadedFiles, setUploadedFiles] = React.useState<UploadedFile[]>(defaultUploadedFiles);
@@ -23,7 +25,8 @@ export function useUploadFile({
   React.useEffect(() => {
     async function fetchDefaultUploadedFiles() {
       try {
-        const response = await axios.get(endpoint);
+        const response = await axios.get(endpoint + `/${userId}`);
+        console.log(response);
         setUploadedFiles(response.data);
       } catch (err) {
         toast.error(getErrorMessage(err));
@@ -38,7 +41,7 @@ export function useUploadFile({
     try {
       const res = await Promise.all(
         files.map(async (file) => {
-          const progress = await uploadFiles(`api/file-upload`, {
+          const progress = await uploadFiles(`api/file-upload/${userId}`, {
             ...props,
             files: [file],
             onUploadProgress: ({ progress }) => {
@@ -50,7 +53,7 @@ export function useUploadFile({
           });
           return {
             name: file.name,
-            size: file.size,
+            //size: file.size,
             param: {
               size: file.size,
               type: file.type,

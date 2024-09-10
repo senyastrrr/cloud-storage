@@ -25,5 +25,18 @@
       "title": "No files uploaded",
       "description": "Upload some files to see them here"
     }
+  },
+  "side-menu": {
+    "all-files": "All files",
+    "photos": "Photos",
+    "shared": "Shared",
+    "folders": "Folders",
+    "upgrade-card": {
+      "title": "Upgrade to Pro",
+      "description": "Unlock all features and get unlimited access to our support team."
+    }
+  },
+  "search-component": {
+    "placeholder": "Search..."
   }
 }

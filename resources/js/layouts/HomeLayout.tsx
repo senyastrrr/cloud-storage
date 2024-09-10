@@ -7,29 +7,30 @@ import { User } from '@/types';
 import { ModeToggle } from '@/components/mode-toggle';
 import LanguageSwitcher from '@/components/language-switcher';
 import { Button } from '@/components/ui/button';
+import SearchComponent from '@/components/search';
 
-export default function Authenticated({ user, header, children, icon = true }: PropsWithChildren<{ user: User, header?: ReactNode, icon?: boolean }>) {
+export default function Home({ user, header, children, icon = true }: PropsWithChildren<{ user: User, header?: ReactNode, icon?: boolean }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
         <div className="min-h-screen">
-            <nav className='bg-muted/40'>
-                <div className="px-4 sm:px-6 lg:px-8">
+            <nav>
+                <div className="pr-4 sm:pr-6 lg:pr-8">
                     <div className="flex justify-between h-16">
-                        <div className="flex">
+                        <div className="flex bg-muted/40 md:w-[220px] lg:w-[280px] hidden md:flex">
                             {icon && (
-                                <div className="shrink-0 flex items-center">
+                                <div className="shrink-0 flex items-center pl-4 sm:pl-6 lg:pl-8">
                                     <Link href="/">
                                         <ApplicationLogo className="block h-9 w-auto fill-current" />
                                     </Link>
                                 </div>
                             )}
                         </div>
-
-                        <div className="hidden sm:flex sm:items-center sm:ms-6 gap-4">
-                            <ModeToggle />
-                            <LanguageSwitcher />
-                            <div className="">
+                        <div className="flex sm:items-center ms-10 gap-4">
+                            <SearchComponent onSearch={(query) => console.log(query)} />
+                            <div className='hidden sm:flex sm:items-center gap-4'>
+                                <ModeToggle />
+                                <LanguageSwitcher />
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -65,7 +66,7 @@ export default function Authenticated({ user, header, children, icon = true }: P
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        <div className="-me-2 flex items-center md:hidden">
                             <button
                                 onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
                                 className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none transition duration-150 ease-in-out"

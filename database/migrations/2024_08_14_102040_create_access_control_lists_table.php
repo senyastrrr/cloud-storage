@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('access_control_lists', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('item_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignUuid('item_id')->constrained('items')->onDelete('cascade');
         });
     }
 
